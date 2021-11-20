@@ -40,7 +40,7 @@ PolyData::PolyData(std::vector<Rational> poly)
 		}
 	}
 
-	m_head = buildBST(nodes, 0, reauireSpace);
+	m_head = buildBST(nodes, 0, reauireSpace - 1);
 }
 
 PolyData::~PolyData()
@@ -57,8 +57,8 @@ PolyNode& PolyData::operator[](const int degree)
 
 PolyNode* PolyData::buildBST(PolyNode **nodes, const int start, const int end)
 {	
-	if (start == end)
-		return nodes[start];
+	if (start > end)
+		return nullptr;
 	
 	auto mid = (start + end) / 2;
 	nodes[mid]->m_left = buildBST(nodes, start, mid - 1);
