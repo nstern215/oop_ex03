@@ -3,12 +3,12 @@
 class Rational
 {
 public:
-	Rational() = default;
-	Rational(const Rational&);
-	Rational(const int);
-	Rational(const int, const int);
+	Rational();
+	Rational(const Rational& other);
+	Rational(const int numerator);
+	Rational(const int numerator, const int denominator);
 
-	Rational operator=(const Rational&);
+	Rational& operator=(const Rational& other);
 	//todo: add operators (check if relevant): <<
 	//pay attention for reuse and global operators
 	//<
@@ -28,8 +28,8 @@ public:
 	//%
 	//gcd
 	
-	int get_numerrator() const;
-	int get_denominator() const;
+	int getNumerator() const;
+	int getDenominator() const;
 
 private:
 	int m_numerator; //mone
