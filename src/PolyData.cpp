@@ -43,6 +43,12 @@ PolyData::PolyData(std::vector<Rational> poly)
 	m_head = buildBST(nodes, 0, reauireSpace);
 }
 
+PolyNode& PolyData::operator[](const int degree)
+{
+	return *searchNode(degree, m_head);
+}
+
+
 PolyNode* PolyData::buildBST(PolyNode **nodes, const int start, const int end)
 {	
 	if (start == end)
@@ -53,4 +59,18 @@ PolyNode* PolyData::buildBST(PolyNode **nodes, const int start, const int end)
 	nodes[mid]->m_right = buildBST(nodes, mid + 1, end);
 
 	return nodes[mid];
+}
+
+PolyNode* PolyData::searchNode(const int degree, PolyNode* head) const
+{
+	if (head == nullptr)
+		return nullptr;
+	
+	if (head->m_degree == degree)
+		return head;
+
+	if (degree < head->m_degree)
+		return searchNode(degree, head->m_left);
+
+	return searchNode(degree, head->m_right);
 }
