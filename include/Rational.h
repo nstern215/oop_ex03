@@ -32,6 +32,8 @@ public:
 	int getDenominator() const;
 
 private:
+	void minimize_fraction();
+	
 	int m_numerator; //mone
 	int m_denominator; //mechane
 };

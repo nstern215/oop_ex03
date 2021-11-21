@@ -1,5 +1,7 @@
 #include "Rational.h"
 
+#include <numeric>
+
 Rational::Rational(const int numerator, const int denominator):
 	m_numerator(numerator),
 	m_denominator(denominator)
@@ -9,6 +11,8 @@ Rational::Rational(const int numerator, const int denominator):
 		m_numerator *= -1;
 		m_denominator *= -1;
 	}
+
+	minimize_fraction();
 }
 
 Rational::Rational(const int numerator):
@@ -46,4 +50,17 @@ int Rational::getNumerator() const
 int Rational::getDenominator() const
 {
 	return m_denominator;
+}
+
+void Rational::minimize_fraction()
+{
+	int gcd = std::gcd(m_numerator, m_denominator);
+
+	while (gcd != 1)
+	{
+		m_numerator /= gcd;
+		m_denominator /= gcd;
+
+		gcd = std::gcd(m_numerator, m_denominator);
+	}
 }
