@@ -3,7 +3,13 @@
 Rational::Rational(const int numerator, const int denominator):
 	m_numerator(numerator),
 	m_denominator(denominator)
-{}
+{
+	if (m_denominator < 0)
+	{
+		m_numerator *= -1;
+		m_denominator *= -1;
+	}
+}
 
 Rational::Rational(const int numerator):
 	m_numerator(numerator),
