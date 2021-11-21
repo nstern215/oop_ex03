@@ -9,6 +9,7 @@ public:
 	Rational(const int numerator, const int denominator);
 
 	Rational& operator=(const Rational& other);
+	Rational& operator-();
 	//todo: add operators (check if relevant): <<
 	//pay attention for reuse and global operators
 	//<
@@ -37,3 +38,8 @@ private:
 	int m_numerator; //mone
 	int m_denominator; //mechane
 };
+
+Rational operator+(const Rational& a, const Rational& b);
+Rational operator-(const Rational& a, const Rational& b);
+Rational operator*(const Rational& a, const Rational& b);
+Rational operator/(const Rational& a, const Rational& b);

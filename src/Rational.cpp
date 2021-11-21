@@ -30,6 +30,9 @@ Rational::Rational(const Rational& other):
 	m_denominator(other.getDenominator())
 {}
 
+
+//operators
+//Local operators
 Rational& Rational::operator=(const Rational& other)
 {
 	if (this != &other)
@@ -39,6 +42,41 @@ Rational& Rational::operator=(const Rational& other)
 	}
 
 	return *this;
+}
+
+Rational& Rational::operator-()
+{
+	m_numerator *= -1;
+	return *this;
+}
+
+//Global operators
+Rational operator+(const Rational& a, const Rational& b)
+{
+	auto lcm = std::lcm(a.getDenominator(), b.getDenominator());
+	
+	return Rational(a.getNumerator() + b.getNumerator(), lcm);
+
+	
+}
+
+Rational operator-(const Rational& a, const Rational& b)
+{
+	auto lcm = std::lcm(a.getDenominator(), b.getDenominator());
+	
+	return Rational(a.getNumerator() - b.getNumerator(), lcm);
+}
+
+Rational operator*(const Rational& a, const Rational& b)
+{
+	return Rational(a.getNumerator() * b.getNumerator(),
+		a.getDenominator() * b.getDenominator());
+}
+
+Rational operator/(const Rational& a, const Rational& b)
+{
+	return Rational(a.getNumerator() * b.getDenominator(),
+		a.getDenominator() * b.getNumerator());
 }
 
 int Rational::getNumerator() const
@@ -54,7 +92,7 @@ int Rational::getDenominator() const
 
 void Rational::minimize_fraction()
 {
-	int gcd = std::gcd(m_numerator, m_denominator);
+	auto gcd = std::gcd(m_numerator, m_denominator);
 
 	while (gcd != 1)
 	{
