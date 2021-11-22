@@ -1,6 +1,7 @@
 #include "Rational.h"
 
 #include <numeric>
+#include <ostream>
 
 Rational::Rational(const int numerator, const int denominator):
 	m_numerator(numerator),
@@ -169,4 +170,10 @@ bool operator<=(const Rational& a, const Rational& b)
 bool operator>=(const Rational& a, const Rational& b)
 {
 	return a > b || a == b;
+}
+
+std::ostream& operator<<(std::ostream& stream, const Rational& other)
+{
+	stream << other.getNumerator() << "/" << other.getDenominator();
+	return stream;
 }
