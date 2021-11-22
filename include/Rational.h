@@ -10,6 +10,7 @@ public:
 
 	Rational& operator=(const Rational& other);
 	Rational& operator-();
+	Rational& operator+();
 	//todo: add operators (check if relevant): <<
 	//pay attention for reuse and global operators
 	//<

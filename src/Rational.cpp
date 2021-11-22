@@ -50,6 +50,12 @@ Rational& Rational::operator-()
 	return *this;
 }
 
+Rational& Rational::operator+()
+{
+	return *this;
+}
+
+
 //Global operators
 Rational operator+(const Rational& a, const Rational& b)
 {
