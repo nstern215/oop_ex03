@@ -18,6 +18,9 @@ public:
 	Rational& operator-=(const Rational& other);
 	Rational& operator*=(const Rational& other);
 	Rational& operator/=(const Rational& other);
+
+	bool operator==(const Rational& other) const;
+	bool operator<(const Rational& other) const;
 	
 	int getNumerator() const;
 	int getDenominator() const;
@@ -33,3 +36,8 @@ Rational operator+(const Rational& a, const Rational& b);
 Rational operator-(const Rational& a, const Rational& b);
 Rational operator*(const Rational& a, const Rational& b);
 Rational operator/(const Rational& a, const Rational& b);
+
+bool operator!=(const Rational& a, const Rational& b);
+bool operator>(const Rational& a, const Rational& b);
+bool operator<=(const Rational& a, const Rational& b);
+bool operator>=(const Rational& a, const Rational& b);

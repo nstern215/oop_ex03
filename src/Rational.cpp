@@ -85,6 +85,24 @@ Rational& Rational::operator/=(const Rational& other)
 	return *this;
 }
 
+bool Rational::operator<(const Rational& other) const
+{
+	if (m_denominator == other.getDenominator())
+	{
+		return m_numerator < other.getNumerator();
+	}
+
+	const auto lcm = std::lcm(m_denominator, other.getDenominator());
+
+	return m_numerator * (lcm / m_denominator) < other.getNumerator() * (lcm / other.getDenominator());
+}
+
+bool Rational::operator==(const Rational& other) const
+{
+	return m_numerator == other.getNumerator() &&
+		m_denominator == other.getDenominator();
+}
+
 
 //Global operators
 Rational operator+(const Rational& a, const Rational& b)
@@ -133,4 +151,22 @@ void Rational::minimize_fraction()
 
 		gcd = std::gcd(m_numerator, m_denominator);
 	}
+}
+
+bool operator!=(const Rational& a, const Rational& b)
+{
+	return !(a == b);
+}
+
+bool operator>(const Rational& a, const Rational& b)
+{
+	return !(a < b) && a != b;
+}
+bool operator<=(const Rational& a, const Rational& b)
+{
+	return a < b || a == b;
+}
+bool operator>=(const Rational& a, const Rational& b)
+{
+	return a > b || a == b;
 }
