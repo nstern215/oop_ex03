@@ -9,26 +9,15 @@ public:
 	Rational(const int numerator, const int denominator);
 
 	Rational& operator=(const Rational& other);
+
 	Rational& operator-();
+	Rational operator-() const;
 	Rational& operator+();
-	//todo: add operators (check if relevant): <<
-	//pay attention for reuse and global operators
-	//<
-	//>
-	//!
-	//<=
-	//>=
-	//==
-	//+
-	//-
-	//*
-	///
-	//+=
-	//-=
-	//*=
-	///=
-	//%
-	//gcd
+
+	Rational& operator+=(const Rational& other);
+	Rational& operator-=(const Rational& other);
+	Rational& operator*=(const Rational& other);
+	Rational& operator/=(const Rational& other);
 	
 	int getNumerator() const;
 	int getDenominator() const;

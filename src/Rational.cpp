@@ -50,8 +50,38 @@ Rational& Rational::operator-()
 	return *this;
 }
 
+Rational Rational::operator-() const
+{
+	return Rational(-m_numerator, m_denominator);
+}
+
+
 Rational& Rational::operator+()
 {
+	return *this;
+}
+
+Rational& Rational::operator+=(const Rational& other)
+{
+	*this = *this + other;
+	return *this;
+}
+
+Rational& Rational::operator-=(const Rational& other)
+{
+	*this += -other;
+	return *this;
+}
+
+Rational& Rational::operator*=(const Rational& other)
+{
+	*this = *this * other;
+	return *this;
+}
+
+Rational& Rational::operator/=(const Rational& other)
+{
+	*this = *this / other;
 	return *this;
 }
 
@@ -59,18 +89,14 @@ Rational& Rational::operator+()
 //Global operators
 Rational operator+(const Rational& a, const Rational& b)
 {
-	auto lcm = std::lcm(a.getDenominator(), b.getDenominator());
+	const auto lcm = std::lcm(a.getDenominator(), b.getDenominator());
 	
 	return Rational(a.getNumerator() + b.getNumerator(), lcm);
-
-	
 }
 
 Rational operator-(const Rational& a, const Rational& b)
 {
-	auto lcm = std::lcm(a.getDenominator(), b.getDenominator());
-	
-	return Rational(a.getNumerator() - b.getNumerator(), lcm);
+	return a + -b;
 }
 
 Rational operator*(const Rational& a, const Rational& b)
