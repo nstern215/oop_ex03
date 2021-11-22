@@ -1,5 +1,7 @@
 #pragma once
 
+#include <iosfwd>
+
 class Rational
 {
 public:
@@ -41,3 +43,5 @@ bool operator!=(const Rational& a, const Rational& b);
 bool operator>(const Rational& a, const Rational& b);
 bool operator<=(const Rational& a, const Rational& b);
 bool operator>=(const Rational& a, const Rational& b);
+
+std::ostream& operator<<(std::ostream& stream, const Rational& other);
