@@ -200,7 +200,9 @@ const PolyNode* PolyData::getHead() const
 
 bool operator==(const PolyNode& a, const PolyNode& b)
 {
-	return a.m_data == b.m_data && a.m_degree == b.m_degree;
+	return (a.m_data->getNumerator() == b.m_data->getNumerator()) &&
+		(a.m_data->getDenominator() == b.m_data->getDenominator()) &&
+		a.m_degree == b.m_degree;
 }
 
 bool operator!=(const PolyNode& a, const PolyNode& b)

@@ -15,7 +15,7 @@ public:
 
 	bool operator==(const Poly& other) const;
 
-	PolyData getData() const;
+	const PolyData& getData() const;
 
 	//todo: add operators +-* << / %
 

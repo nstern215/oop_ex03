@@ -2,7 +2,7 @@
 #include "Rational.h"
 
 Poly::Poly():
-	m_deg(0)
+	Poly(Rational(0))
 {}
 
 Poly::Poly(const std::vector<Rational>& poly):
@@ -25,11 +25,10 @@ int Poly::getDeg() const
 	return m_deg;
 }
 
-PolyData Poly::getData() const
+const PolyData& Poly::getData() const
 {
 	return m_data;
 }
-
 
 bool Poly::operator==(const Poly& other) const
 {
