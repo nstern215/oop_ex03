@@ -30,6 +30,32 @@ const PolyData& Poly::getData() const
 	return m_data;
 }
 
+Rational Poly::valueInPoint(const PolyNode* node, const Rational& rational) const
+{
+	auto result = Rational(pow(rational.getNumerator(), node->m_degree),
+		pow(rational.getDenominator(), node->m_degree));
+
+	result *= *(node->m_data);
+
+	return result;
+}
+
+Rational Poly::calcPoly(const PolyNode* node, const Rational& rational) const
+{
+	if (node == nullptr)
+		return 0;
+
+	auto inPoint = valueInPoint(node, rational);
+	auto left = calcPoly(node->m_left, rational);
+	auto right = calcPoly(node->m_right, rational);
+	
+	return valueInPoint(node, rational) +
+		calcPoly(node->m_left, rational) +
+		calcPoly(node->m_right, rational);
+}
+
+
+//operators
 bool Poly::operator==(const Poly& other) const
 {
 	return m_data == other.getData();
@@ -38,4 +64,9 @@ bool Poly::operator==(const Poly& other) const
 bool operator!=(const Poly& a, const Poly& b)
 {
 	return !(a == b);
+}
+
+Rational Poly::operator()(const Rational& rational) const
+{
+	return calcPoly(m_data.getHead(), rational);
 }

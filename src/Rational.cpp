@@ -109,8 +109,11 @@ bool Rational::operator==(const Rational& other) const
 Rational operator+(const Rational& a, const Rational& b)
 {
 	const auto lcm = std::lcm(a.getDenominator(), b.getDenominator());
+
+	const auto a_numerator = (lcm / a.getDenominator()) * a.getNumerator();
+	const auto b_numerator = (lcm / b.getDenominator()) * b.getNumerator();
 	
-	return Rational(a.getNumerator() + b.getNumerator(), lcm);
+	return Rational(a_numerator + b_numerator, lcm);
 }
 
 Rational operator-(const Rational& a, const Rational& b)
@@ -143,15 +146,10 @@ int Rational::getDenominator() const
 
 void Rational::minimize_fraction()
 {
-	auto gcd = std::gcd(m_numerator, m_denominator);
+	const auto gcd = std::gcd(m_numerator, m_denominator);
 
-	while (gcd != 1)
-	{
-		m_numerator /= gcd;
-		m_denominator /= gcd;
-
-		gcd = std::gcd(m_numerator, m_denominator);
-	}
+	m_numerator /= gcd;
+	m_denominator /= gcd;
 }
 
 bool operator!=(const Rational& a, const Rational& b)
