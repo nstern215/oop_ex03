@@ -8,6 +8,10 @@ using std::nothrow;
 using std::cerr;
 using std::endl;
 
+PolyData::PolyData():
+	m_head(nullptr)
+{}
+
 PolyData::PolyData(std::vector<Rational> poly)
 {
 	int reauireSpace = 0;
@@ -54,6 +58,15 @@ PolyNode& PolyData::operator[](const int degree)
 	return *searchNode(degree, m_head);
 }
 
+bool PolyData::operator==(const PolyData& other) const
+{
+	return isCompare(m_head, other.getHead());
+}
+
+bool operator!=(const PolyData& a, const PolyData& b)
+{
+	return !(a == b);
+}
 
 PolyNode* PolyData::buildBST(PolyNode **nodes, const int start, const int end)
 {	
@@ -92,4 +105,107 @@ void PolyData::deleteNode(PolyNode* node)
 	delete node->m_left;
 	delete node->m_right;
 	delete node;
+}
+
+bool PolyData::isCompare(const PolyNode* a, const PolyNode* b) const
+{
+	if (a == nullptr || b == nullptr)
+	{
+		if (a == nullptr && b == nullptr)
+			return true;
+
+		return false;
+	}
+	
+	//todo: check if can compare pointers
+	if (*a != *b)
+		return false;
+
+	return isCompare(a->m_left, b->m_left) &&
+		isCompare(a->m_right, b->m_right);
+}
+
+void PolyData::add(const Rational& rational, const int degree)
+{
+	add(m_head, rational, degree);
+}
+
+void PolyData::add(PolyNode*& head, const Rational& rational, const int degree)
+{
+	if (head == nullptr)
+	{
+		//todo: code reuse for node creation
+		PolyNode* node = new (nothrow) PolyNode();
+		//todo: error if allocation failed
+
+		/**(node->m_data) = rational;*/
+		Rational* r = new Rational(rational);
+		/*node->m_data = new Rational(rational);*/
+		node->m_data = r;
+		node->m_degree = degree;
+
+		node->m_left = nullptr;
+		node->m_right = nullptr;
+
+		head = node;
+	}
+	else if (head->m_degree == degree)
+	{
+		*(head->m_data) +=
+ rational;		
+	}
+	else if (degree < head->m_degree)
+	{
+		if (head->m_left)
+			add(head->m_left, rational, degree);
+		else
+		{
+			auto node = new (nothrow) PolyNode();
+			//todo: error if allocation failed
+
+			*(node->m_data) = rational;
+			node->m_degree = degree;
+
+			node->m_left = nullptr;
+			node->m_right = nullptr;
+			
+			head->m_left = node;
+		}
+	}
+	else
+	{
+		if (head->m_right)
+			add(head->m_right, rational, degree);
+		else
+		{
+			auto node = new (nothrow) PolyNode();
+			//todo: error if allocation failed
+
+			*(node->m_data) = rational;
+			node->m_degree = degree;
+
+			node->m_left = nullptr;
+			node->m_right = nullptr;
+
+			head->m_right = node;
+		}
+	}
+}
+
+
+const PolyNode* PolyData::getHead() const
+{
+	return m_head;
+}
+
+bool operator==(const PolyNode& a, const PolyNode& b)
+{
+	return (a.m_data->getNumerator() == b.m_data->getNumerator()) &&
+		(a.m_data->getDenominator() == b.m_data->getDenominator()) &&
+		a.m_degree == b.m_degree;
+}
+
+bool operator!=(const PolyNode& a, const PolyNode& b)
+{
+	return !(a == b);
 }
