@@ -14,7 +14,8 @@ public:
 	Poly(const int degree, const Rational& rational);
 
 	bool operator==(const Poly& other) const;
-
+	Rational operator()(const Rational& rational) const;
+	
 	const PolyData& getData() const;
 
 	//todo: add operators +-* << / %
@@ -22,6 +23,8 @@ public:
 	int getDeg() const;
 	//todo: gcd for polies
 private:
+	Rational calcPoly(const PolyNode* node, const Rational& rational) const;
+	Rational valueInPoint(const PolyNode* node, const Rational& rational) const;
 	PolyData m_data;
 	unsigned int m_deg;
 };

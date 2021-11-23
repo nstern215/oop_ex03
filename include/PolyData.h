@@ -17,7 +17,7 @@ public:
 
 	void add(const Rational& rational, const int degree);
 
-	const PolyNode* getHead() const;
+	PolyNode* getHead() const;
 
 private:
 	PolyNode* buildBST(PolyNode **nodes, const int start, const int end);
