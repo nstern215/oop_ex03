@@ -14,12 +14,12 @@ PolyData::PolyData():
 
 PolyData::PolyData(std::vector<Rational> poly)
 {
-	int reauireSpace = 0;
+	int requireSpace = 0;
 	for (const auto& r : poly)
 		if (r.getNumerator() != 0)
-			reauireSpace++;
+			requireSpace++;
 
-	PolyNode** nodes = new (nothrow) PolyNode*[reauireSpace];
+	PolyNode** nodes = new (nothrow) PolyNode*[requireSpace];
 
 	if (nodes == nullptr)
 	{
@@ -27,24 +27,22 @@ PolyData::PolyData(std::vector<Rational> poly)
 		exit(EXIT_FAILURE);
 	}
 
-	int nodesCounter = 0;
+	int nodesCounter = requireSpace - 1;
 	for (int i=0; i < poly.size(); i++)
 	{
 		if (poly[i].getNumerator() != 0)
 		{
 			PolyNode* node = new PolyNode;
-			node->m_degree = i;
+			node->m_degree = requireSpace - i - 1;
 			node->m_data = new Rational(poly[i]);
 			node->m_left = nullptr;
 			node->m_right = nullptr;
 			
-			nodes[nodesCounter] = node;
-
-			nodesCounter++;
+			nodes[nodesCounter--] = node;
 		}
 	}
 
-	m_head = buildBST(nodes, 0, reauireSpace - 1);
+	m_head = buildBST(nodes, 0, requireSpace - 1);
 }
 
 PolyData::~PolyData()
@@ -193,7 +191,7 @@ void PolyData::add(PolyNode*& head, const Rational& rational, const int degree)
 }
 
 
-const PolyNode* PolyData::getHead() const
+PolyNode* PolyData::getHead() const
 {
 	return m_head;
 }
