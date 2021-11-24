@@ -63,3 +63,10 @@ Rational Poly::operator()(const Rational& rational) const
 	
 	return result;
 }
+
+Rational Poly::operator[](const int deg) const
+{
+	PolyNode* node = m_data[deg];
+
+	return node == nullptr ? 0 : *(node->m_data);
+}
