@@ -6,7 +6,6 @@ Poly::Poly():
 {}
 
 Poly::Poly(const std::vector<Rational>& poly):
-	m_deg(poly.size()),
 	m_data(poly)
 {}
 
@@ -14,15 +13,14 @@ Poly::Poly(const Rational& rational):
 	Poly(1, rational)
 {}
 
-Poly::Poly(const int degree, const Rational& rational):
-	m_deg(degree)
+Poly::Poly(const int degree, const Rational& rational)
 {
 	m_data.add(rational, 1);
 }
 
 int Poly::getDeg() const
 {
-	return m_deg;
+	return m_data.getHead()->m_degree;
 }
 
 const PolyData& Poly::getData() const

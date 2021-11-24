@@ -25,7 +25,6 @@ public:
 private:
 	Rational valueInPoint(const PolyNode* node, const Rational& rational) const;
 	PolyData m_data;
-	unsigned int m_deg;
 };
 
 bool operator!=(const Poly& a, const Poly& b);
