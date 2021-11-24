@@ -15,6 +15,7 @@ public:
 
 	bool operator==(const Poly& other) const;
 	Rational operator()(const Rational& rational) const;
+	Rational operator[](const int deg) const;
 	
 	const PolyData& getData() const;
 

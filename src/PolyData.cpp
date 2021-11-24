@@ -60,7 +60,7 @@ PolyData::~PolyData()
 }
 
 
-PolyNode* PolyData::operator[](const int degree)
+PolyNode* PolyData::operator[](const int degree) const
 {
 	auto* current = m_head;
 	while(current != nullptr)
