@@ -5,10 +5,8 @@
 class Rational
 {
 public:
-	Rational();
 	Rational(const Rational& other);
-	Rational(const int numerator);
-	Rational(const int numerator, const int denominator);
+	Rational(const int numerator = 0, const int denominator = 1);
 
 	Rational& operator=(const Rational& other);
 

@@ -6,8 +6,7 @@ struct PolyNode
 {
 	int m_degree;
 	Rational* m_data;
-	PolyNode* m_left;
-	PolyNode* m_right;
+	PolyNode* m_next;
 };
 
 bool operator==(const PolyNode& a, const PolyNode& b);

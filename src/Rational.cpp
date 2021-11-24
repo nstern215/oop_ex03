@@ -16,16 +16,6 @@ Rational::Rational(const int numerator, const int denominator):
 	minimize_fraction();
 }
 
-Rational::Rational(const int numerator):
-	m_numerator(numerator),
-	m_denominator(1)
-{}
-
-Rational::Rational():
-	m_numerator(1),
-	m_denominator(1)
-{}
-
 Rational::Rational(const Rational& other):
 	m_numerator(other.getNumerator()),
 	m_denominator(other.getDenominator())

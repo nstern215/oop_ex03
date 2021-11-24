@@ -40,21 +40,6 @@ Rational Poly::valueInPoint(const PolyNode* node, const Rational& rational) cons
 	return result;
 }
 
-Rational Poly::calcPoly(const PolyNode* node, const Rational& rational) const
-{
-	if (node == nullptr)
-		return 0;
-
-	auto inPoint = valueInPoint(node, rational);
-	auto left = calcPoly(node->m_left, rational);
-	auto right = calcPoly(node->m_right, rational);
-	
-	return valueInPoint(node, rational) +
-		calcPoly(node->m_left, rational) +
-		calcPoly(node->m_right, rational);
-}
-
-
 //operators
 bool Poly::operator==(const Poly& other) const
 {
@@ -68,5 +53,15 @@ bool operator!=(const Poly& a, const Poly& b)
 
 Rational Poly::operator()(const Rational& rational) const
 {
-	return calcPoly(m_data.getHead(), rational);
+	Rational result;
+
+	auto* current = m_data.getHead();
+
+	while (current != nullptr)
+	{
+		result += valueInPoint(current, rational);
+		current = current->m_next;
+	}
+	
+	return result;
 }
