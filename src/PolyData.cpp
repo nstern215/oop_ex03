@@ -45,18 +45,14 @@ PolyData::PolyData(std::vector<Rational> poly):
 
 PolyData::~PolyData()
 {
-	auto* next = m_head;
-
-	while (next != nullptr)
+	while (m_head != nullptr)
 	{
-		auto* temp = next;
-		next = next->m_next;
+		auto* temp = m_head;
+		m_head = m_head->m_next;
 
 		temp->m_next = nullptr;
 		delete temp;
 	}
-	
-	delete m_head;
 }
 
 
