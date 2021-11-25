@@ -10,6 +10,7 @@ class PolyData
 public:
 	PolyData();
 	PolyData(std::vector<Rational> poly);
+	PolyData(const PolyData&);
 	~PolyData();
 	
 	PolyNode* operator[](const int degree) const;

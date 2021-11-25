@@ -43,6 +43,21 @@ PolyData::PolyData(std::vector<Rational> poly):
 	}
 }
 
+PolyData::PolyData(const PolyData& other):
+	m_head(nullptr)
+{
+	if (other.getHead() == nullptr)
+		return;
+
+	auto* tempHead = other.getHead();
+	while (tempHead != nullptr)
+	{
+		add(*(tempHead->m_data), tempHead->m_degree);
+
+		tempHead = tempHead->m_next;
+	}
+}
+
 PolyData::~PolyData()
 {
 	while (m_head != nullptr)
@@ -167,3 +182,4 @@ bool operator!=(const PolyNode& a, const PolyNode& b)
 {
 	return !(a == b);
 }
+

@@ -21,7 +21,6 @@ Rational::Rational(const Rational& other):
 	m_denominator(other.getDenominator())
 {}
 
-
 //operators
 //Local operators
 Rational& Rational::operator=(const Rational& other)
@@ -45,7 +44,6 @@ Rational Rational::operator-() const
 {
 	return Rational(-m_numerator, m_denominator);
 }
-
 
 Rational& Rational::operator+()
 {
