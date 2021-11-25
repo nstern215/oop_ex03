@@ -123,11 +123,9 @@ Poly Poly::operator+() const
 
 Poly Poly::operator+(const PolyNode& other) const
 {
-	int deg;
-	
-
-
-	return result;
+	Poly temp(*this);
+	temp += Poly(other.m_degree , *(other.m_data));
+	return temp;
 }
 
 
@@ -178,7 +176,7 @@ Poly& Poly::operator+=(const Poly& other)
 Poly& Poly::operator+=(const PolyNode& other)
 {
 	// TODO: insert return statement here
-	m_data.add(other);
+	//m_data.add(*(other->m_data), other.m_degree);
 	return *this;
 }
 
@@ -191,7 +189,7 @@ Poly& Poly::operator-=(const Poly& other)
 
 Poly& Poly::operator*=(const Poly& other)
 {
-	*this = *this * other;
+	/**this = *this * other;*/
 	return *this;
 }
 

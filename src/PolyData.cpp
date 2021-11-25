@@ -140,7 +140,7 @@ void PolyData::add(const Rational& rational, const int degree)
 		return;
 	}
 	
-	auto* current = m_head;
+	PolyNode* current = m_head;
 	while (current->m_next != nullptr)
 	{
 		if (current->m_degree == degree)
@@ -151,6 +151,8 @@ void PolyData::add(const Rational& rational, const int degree)
 
 		if (current->m_next->m_degree < degree)
 			break;
+
+		current = current->m_next;
 	}
 
 	auto* newNode = new (nothrow) PolyNode();
