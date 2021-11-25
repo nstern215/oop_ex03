@@ -53,6 +53,12 @@ int main()
 	std::cout << "Poly 2 \n" << p2 << std::endl;
 	std::cout << "Poly 3 \n" << p3 << std::endl;
 
+	std::cout << p1.getDeg() << std::endl;
+	std::cout << p2.getDeg() << std::endl;
+	std::cout << p3.getDeg() << std::endl;
+	std::cout << p4.getDeg() << std::endl;
+	std::cout << p5.getDeg() << std::endl;
+	
 	std::cout << "\n\n" << std::endl;
 
 	std::cout << "evaluationa and arithmethic tests: " << std::endl;
@@ -67,15 +73,21 @@ int main()
 	p1 += p2;
 	result = p1(2);
 
+	std::cout << p1.getDeg() << std::endl;
+
 	std::cout << (result == result2 ? "Test Pass" : "Test Failed") << std::endl;
 	
 	p1 -= p5;
 	result = p1(2);
 
+	std::cout << p1.getDeg() << std::endl;
+
 	std::cout << (result == Rational(85) ? "Test Pass" : "Test Failed") << std::endl;
 	
 	p1 *= p3;
 	result = p1(2);
+
+	std::cout << p1.getDeg() << std::endl;
 	std::cout << (result == result3 ? "Test Pass" : "Test Failed") << std::endl;
 
 	std::cout << "\n\nPoly 1 \n" << p1 << std::endl;

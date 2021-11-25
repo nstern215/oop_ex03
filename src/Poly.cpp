@@ -42,14 +42,10 @@ Rational Poly::valueInPoint(const PolyNode* node, const Rational& rational) cons
 	return result;
 }
 
-//operators
-//local operators
-
 bool Poly::operator==(const Poly& other) const
 {
 	return m_data == other.getData();
 }
-
 
 Rational Poly::operator()(const Rational& rational) const
 {
@@ -103,8 +99,8 @@ Poly Poly::operator-() const
 
 Poly Poly::operator-(const Poly& other) const
 {
-
-	return Poly();
+	Poly temp(other);
+	return (-temp);
 }
 
 
@@ -133,9 +129,7 @@ Poly Poly::operator*(const Poly& other) const
 
 	while(node != nullptr)
 	{
-		Poly resultPoly = other * (*node);
-		result += resultPoly;
-
+		result += (other * (*node));
 		node = node->m_next;
 	}
 	return result;
@@ -148,11 +142,9 @@ Poly Poly::operator*(const PolyNode& other) const
 
 	while (node != nullptr)
 	{
-		Rational r = *(node->m_data);
-		Rational rationalResult = r * *other.m_data;
+		Rational rationalResult = *(node->m_data) * *other.m_data;
 		int newDeg = node->m_degree + other.m_degree;
-		Poly x(newDeg, rationalResult);
-		result += x;
+		result += Poly(newDeg, rationalResult);
 
 		node = node->m_next;
 	}
@@ -174,7 +166,6 @@ Poly& Poly::operator+=(const Poly& other)
 
 Poly& Poly::operator+=(const PolyNode& other)
 {
-	// TODO: insert return statement here
 	m_data.add(*other.m_data, other.m_degree);
 	return *this;
 }
@@ -205,11 +196,6 @@ std::ostream& operator<<(std::ostream& os, const Poly& other)
 
 	while(node != nullptr)
 	{
-		/*if ((node->m_data < 0) && (node != other.getData().getHead()))
-		{
-			os << "+";
-		}*/
-
 		if (node->m_data->getNumerator() > 0 && !firstPrint)
 			os << "+";
 		
