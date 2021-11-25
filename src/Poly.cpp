@@ -97,7 +97,8 @@ Poly& Poly::operator-()
 
 Poly Poly::operator-() const
 {
-	return Poly(*this);
+	Poly temp(*this);
+	return -temp;
 }
 
 Poly Poly::operator-(const Poly& other) const
@@ -180,7 +181,7 @@ Poly& Poly::operator+=(const PolyNode& other)
 
 Poly& Poly::operator-=(const Poly& other)
 {
-	*this += -other;
+	*this += (-other);
 
 	return *this;
 }

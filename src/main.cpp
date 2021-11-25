@@ -69,7 +69,11 @@ int main()
 	/*p4 = (p1 * p3);
 	result = p4(2);
 	std::cout << (result == result3 ? "Test Pass" : "Test Failed") << std::endl;*/
+	p1 -= p5;
+	result = p1(2);
 
+	std::cout << (result == Rational(85) ? "Test Pass" : "Test Failed") << std::endl;
+	
 	p1 *= p3;
 	result = p1(2);
 	std::cout << (result == result3 ? "Test Pass" : "Test Failed") << std::endl;
