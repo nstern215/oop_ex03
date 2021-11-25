@@ -3,6 +3,7 @@
 #include "PolyNode.h"
 
 #include <ostream>
+#include <iostream>
 
 Poly::Poly(const std::vector<Rational>& poly):
 	m_data(poly)
@@ -130,6 +131,11 @@ Poly Poly::operator*(const Poly& other) const
 {
 	Poly result;
 	auto* node = m_data.getHead();
+	if (node == nullptr)
+	{
+		std::cerr << "faild to allocate memory";
+		exit(EXIT_FAILURE);
+	}
 
 	while(node != nullptr)
 	{
@@ -145,6 +151,11 @@ Poly Poly::operator*(const PolyNode& other) const
 {
 	Poly result;
 	auto* node = m_data.getHead();
+	if (node == nullptr)
+	{
+		std::cerr << "faild to allocate memory";
+		exit(EXIT_FAILURE);
+	}
 
 	while (node != nullptr)
 	{
@@ -162,6 +173,11 @@ Poly Poly::operator*(const PolyNode& other) const
 Poly& Poly::operator+=(const Poly& other)
 {
 	auto* node = other.getData().getHead();
+	if (node == nullptr)
+	{
+		std::cerr << "faild to allocate memory";
+		exit(EXIT_FAILURE);
+	}
 
 	while(node != nullptr)
 	{
@@ -201,6 +217,11 @@ bool operator!=(const Poly& a, const Poly& b)
 std::ostream& operator<<(std::ostream& os, const Poly& other)
 {
 	auto* node = other.getData().getHead();
+	if (node == nullptr)
+	{
+		std::cerr << "faild to allocate memory";
+		exit(EXIT_FAILURE);
+	}
 	bool firstPrint = true;
 
 	while(node != nullptr)

@@ -156,6 +156,11 @@ void PolyData::add(const Rational& rational, const int degree)
 	if (m_head == nullptr || degree > m_head->m_degree)
 	{
 		auto* node = new (nothrow) PolyNode();
+		if (node == nullptr)
+		{
+			std::cerr<<"faild to allocate memory";
+			exit(EXIT_FAILURE);
+		}
 		//todo check allocation
 		node->m_data = new Rational(rational);
 		node->m_degree = degree;
@@ -173,6 +178,11 @@ void PolyData::add(const Rational& rational, const int degree)
 	}
 	
 	PolyNode* current = m_head;
+	if (current == nullptr)
+	{
+		std::cerr << "faild to allocate memory";
+		exit(EXIT_FAILURE);
+	}
 	while (current->m_next != nullptr)
 	{
 		if (current->m_degree == degree)
@@ -188,6 +198,11 @@ void PolyData::add(const Rational& rational, const int degree)
 	}
 
 	auto* newNode = new (nothrow) PolyNode();
+	if (newNode == nullptr)
+	{
+		std::cerr << "faild to allocate memory";
+		exit(EXIT_FAILURE);
+	}
 
 	if (newNode == nullptr)
 	{
@@ -216,4 +231,3 @@ bool operator!=(const PolyNode& a, const PolyNode& b)
 {
 	return !(a == b);
 }
-

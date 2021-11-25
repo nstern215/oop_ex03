@@ -12,7 +12,7 @@ public:
 	PolyData(std::vector<Rational> poly);
 	PolyData(const PolyData&);
 	~PolyData();
-	
+
 	PolyNode* operator[](const int degree) const;
 	bool operator==(const PolyData& other) const;
 	PolyData& operator=(const PolyData& other);
