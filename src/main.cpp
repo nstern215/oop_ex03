@@ -5,6 +5,9 @@
 int main()
 {
 	std::vector<Rational> poly1;
+	poly1.emplace_back();
+	poly1.emplace_back();
+	poly1.emplace_back();
 	poly1.emplace_back(1, 2);
 	poly1.emplace_back();
 	poly1.emplace_back(8, 3);
@@ -66,9 +69,6 @@ int main()
 
 	std::cout << (result == result2 ? "Test Pass" : "Test Failed") << std::endl;
 	
-	/*p4 = (p1 * p3);
-	result = p4(2);
-	std::cout << (result == result3 ? "Test Pass" : "Test Failed") << std::endl;*/
 	p1 -= p5;
 	result = p1(2);
 
