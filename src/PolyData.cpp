@@ -118,11 +118,13 @@ bool PolyData::isCompare(const PolyNode* a, const PolyNode* b) const
 
 void PolyData::add(const Rational& rational, const int degree)
 {
-	if (m_head == nullptr)
+	if (m_head == nullptr || m_head->m_degree == degree)
 	{
-		m_head = new (nothrow) PolyNode();
-		m_head->m_data = new Rational(rational);
-		m_head->m_next = nullptr;
+		auto* node = new (nothrow) PolyNode();
+		node->m_data = new Rational(rational);
+		node->m_next = m_head == nullptr ? nullptr : m_head->m_next;
+
+		m_head = node;
 
 		return;
 	}
