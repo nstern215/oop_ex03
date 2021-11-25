@@ -60,14 +60,25 @@ PolyData::PolyData(const PolyData& other):
 
 PolyData::~PolyData()
 {
-	while (m_head != nullptr)
-	{
-		auto* temp = m_head;
-		m_head = m_head->m_next;
+	releaseMemory();
+}
 
-		temp->m_next = nullptr;
-		delete temp;
+PolyData& PolyData::operator=(const PolyData& other)
+{
+	if (&other == this || other.getHead() == nullptr)
+		return *this;
+
+	releaseMemory();
+	
+	auto* tempHead = other.getHead();
+	while (tempHead != nullptr)
+	{
+		add(*(tempHead->m_data), tempHead->m_degree);
+
+		tempHead = tempHead->m_next;
 	}
+
+	return *this;
 }
 
 
@@ -94,6 +105,19 @@ bool operator!=(const PolyData& a, const PolyData& b)
 {
 	return !(a == b);
 }
+
+void PolyData::releaseMemory()
+{
+	while (m_head != nullptr)
+	{
+		auto* temp = m_head;
+		m_head = m_head->m_next;
+
+		temp->m_next = nullptr;
+		delete temp;
+	}
+}
+
 
 void PolyData::deleteNode(PolyNode* node)
 {
@@ -129,14 +153,22 @@ bool PolyData::isCompare(const PolyNode* a, const PolyNode* b) const
 
 void PolyData::add(const Rational& rational, const int degree)
 {
-	if (m_head == nullptr || m_head->m_degree == degree)
+	if (m_head == nullptr || degree > m_head->m_degree)
 	{
 		auto* node = new (nothrow) PolyNode();
+		//todo check allocation
 		node->m_data = new Rational(rational);
-		node->m_next = m_head == nullptr ? nullptr : m_head->m_next;
+		node->m_degree = degree;
+		node->m_next = m_head == nullptr ? nullptr : m_head;
 
 		m_head = node;
 
+		return;
+	}
+
+	if (degree == m_head->m_degree)
+	{
+		*(m_head->m_data) += rational;
 		return;
 	}
 	

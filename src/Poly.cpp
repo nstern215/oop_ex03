@@ -4,10 +4,6 @@
 
 #include <ostream>
 
-Poly::Poly():
-	Poly(Rational(0))
-{}
-
 Poly::Poly(const std::vector<Rational>& poly):
 	m_data(poly)
 {}
@@ -136,7 +132,8 @@ Poly Poly::operator*(const Poly& other) const
 
 	while(node != nullptr)
 	{
-		result += other * (*node);
+		Poly resultPoly = other * (*node);
+		result += resultPoly;
 
 		node = node->m_next;
 	}
@@ -153,7 +150,8 @@ Poly Poly::operator*(const PolyNode& other) const
 		Rational r = *(node->m_data);
 		Rational rationalResult = r * *other.m_data;
 		int newDeg = node->m_degree + other.m_degree;
-		result += Poly(newDeg, rationalResult);
+		Poly x(newDeg, rationalResult);
+		result += x;
 
 		node = node->m_next;
 	}
@@ -189,7 +187,8 @@ Poly& Poly::operator-=(const Poly& other)
 
 Poly& Poly::operator*=(const Poly& other)
 {
-	*this = *this * other;
+	Poly result = *this * other;
+	m_data = result.getData();
 	return *this;
 }
 

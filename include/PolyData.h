@@ -15,6 +15,7 @@ public:
 	
 	PolyNode* operator[](const int degree) const;
 	bool operator==(const PolyData& other) const;
+	PolyData& operator=(const PolyData& other);
 
 	void add(const Rational& rational, const int degree);
 
@@ -22,7 +23,8 @@ public:
 
 private:
 	bool isCompare(const PolyNode* a, const PolyNode* b) const;
-	
+
+	void releaseMemory();
 	void deleteNode(PolyNode* node);
 	
 	PolyNode* m_head;

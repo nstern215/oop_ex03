@@ -8,10 +8,9 @@
 class Poly
 {
 public:
-	Poly();
 	Poly(const std::vector<Rational>& poly);
 	Poly(const Rational& rational);
-	Poly(const int degree, const Rational& rational);
+	Poly(const int degree = 0, const Rational& rational = 0);
 	Poly(const Poly&);
 
 	bool operator==(const Poly& other) const;

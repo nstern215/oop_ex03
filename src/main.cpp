@@ -24,10 +24,19 @@ int main()
 	poly3.emplace_back(0);
 	poly3.emplace_back();
 
+	std::vector<Rational> poly5;
+	poly5.emplace_back(-1,2);
+	poly5.emplace_back(1,2);
+	poly5.emplace_back();
+	poly5.emplace_back(8,3);
+	poly5.emplace_back();
+	poly5.emplace_back();
+
 	Poly p1(poly1);
 	Poly p2(poly2);
 	Poly p3(poly3);
 	Poly p4;
+	Poly p5(poly5);
 
 	std::cout << "Comparing tests: " << std::endl;
 	
