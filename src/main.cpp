@@ -37,9 +37,9 @@ int main()
 	a = p2 != p4;
 	std::cout <<( a ? "Test pass" : "Test Failed") << std::endl;
 
-	/*std::cout << "Poly 1 \n" << p1 << std::endl;
+	std::cout << "Poly 1 \n" << p1 << std::endl;
 	std::cout << "Poly 2 \n" << p2 << std::endl;
-	std::cout << "Poly 3 \n" << p3 << std::endl;*/
+	std::cout << "Poly 3 \n" << p3 << std::endl;
 
 	std::cout << "\n\n" << std::endl;
 
@@ -57,7 +57,7 @@ int main()
 
 	std::cout << (result == result2 ? "Test Pass" : "Test Failed") << std::endl;
 	
-	/*Poly p4 = (p1 * p3);
+	/*p4 = (p1 * p3);
 	result = p4(2);
 	std::cout << (result == result3 ? "Test Pass" : "Test Failed") << std::endl;*/
 

@@ -25,7 +25,8 @@ public:
 
 	Poly operator+(const PolyNode& other) const;
 	Poly operator-(const Poly& other) const;
-	//Poly operator*(const Poly& other) const;
+	Poly operator*(const Poly& other) const;
+	Poly operator*(const PolyNode& other) const;
 
 	Poly& operator+=(const Poly& other);
 	Poly& operator+=(const PolyNode& other);
@@ -47,5 +48,3 @@ Poly operator+(const Poly& a, const Poly& b);
 bool operator!=(const Poly& a, const Poly& b);
 
 std::ostream& operator<<(std::ostream& os, const Poly& other);
-
-//Poly operator*(const PolyNode& other) const;

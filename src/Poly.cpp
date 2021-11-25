@@ -129,36 +129,36 @@ Poly Poly::operator+(const PolyNode& other) const
 }
 
 
-//Poly Poly::operator*(const Poly& other) const
-//{
-//	Poly result;
-//	auto node = this->getData().getHead();
+Poly Poly::operator*(const Poly& other) const
+{
+	Poly result;
+	auto* node = m_data.getHead();
 
-//	while(node != nullptr)
-//	{
-//		result += other * (*node);
+	while(node != nullptr)
+	{
+		result += other * (*node);
 
-//		node = node->m_next;
-//	}
-//	return result;
-//}
+		node = node->m_next;
+	}
+	return result;
+}
 
-//Poly operator*(const PolyNode& other) const
-//{
-//	Poly result;
-//	auto node = this->getData().getHead();
+Poly Poly::operator*(const PolyNode& other) const
+{
+	Poly result;
+	auto* node = m_data.getHead();
 
-//	while (node != nullptr)
-//	{
-//		Rational r = node->m_data;
-//		//Rational rationalResult = r * other.m_data;
-//		int newDeg = node->m_degree + other.m_degree;
-//		//result += Poly(newDeg, rationalResult);
+	while (node != nullptr)
+	{
+		Rational r = *(node->m_data);
+		Rational rationalResult = r * *other.m_data;
+		int newDeg = node->m_degree + other.m_degree;
+		result += Poly(newDeg, rationalResult);
 
-//		node = node->m_next;
-//	}
-//	return result;
-//}
+		node = node->m_next;
+	}
+	return result;
+}
 
 Poly& Poly::operator+=(const Poly& other)
 {
@@ -176,7 +176,7 @@ Poly& Poly::operator+=(const Poly& other)
 Poly& Poly::operator+=(const PolyNode& other)
 {
 	// TODO: insert return statement here
-	//m_data.add(*(other->m_data), other.m_degree);
+	m_data.add(*other.m_data, other.m_degree);
 	return *this;
 }
 
@@ -189,7 +189,7 @@ Poly& Poly::operator-=(const Poly& other)
 
 Poly& Poly::operator*=(const Poly& other)
 {
-	/**this = *this * other;*/
+	*this = *this * other;
 	return *this;
 }
 
@@ -201,14 +201,21 @@ bool operator!=(const Poly& a, const Poly& b)
 std::ostream& operator<<(std::ostream& os, const Poly& other)
 {
 	auto* node = other.getData().getHead();
+	bool firstPrint = true;
 
 	while(node != nullptr)
 	{
-		if ((node->m_data < 0) && (node != other.getData().getHead()))
+		/*if ((node->m_data < 0) && (node != other.getData().getHead()))
 		{
 			os << "+";
-		}
-		os << node->m_data << "*X" << "^" << node->m_degree;
+		}*/
+
+		if (node->m_data->getNumerator() > 0 && !firstPrint)
+			os << "+";
+		
+		os << *(node->m_data) << "*X" << "^" << node->m_degree << " ";;
+		firstPrint = false;
+		node = node->m_next;
 	}
 	return os;
 }
