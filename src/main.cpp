@@ -70,6 +70,9 @@ int main()
 	Rational result = p1(2);
 	std::cout << (result == result1 ? "Test Pass" : "Test Failed") << std::endl;
 
+	std::cout << p1[2] << std::endl;
+	std::cout << p1[3] << std::endl;
+	
 	p1 += p2;
 	result = p1(2);
 
