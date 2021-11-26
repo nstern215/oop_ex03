@@ -149,6 +149,9 @@ void PolyData::deleteNode(PolyNode* node)
 
 bool PolyData::isCompare(const PolyNode* a, const PolyNode* b) const
 {
+	if ((!a && b) || (a && !b))
+		return false;
+	
 	return  a->m_degree == b->m_degree &&
 		*(a->m_data) == *(b->m_data);
 }
