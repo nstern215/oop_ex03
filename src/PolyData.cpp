@@ -203,16 +203,11 @@ void PolyData::add(const Rational& rational, const int degree)
 		exit(EXIT_FAILURE);
 	}
 
-		if (newNode == nullptr)
-		{
-			//todo print error
-		}
-
 		newNode->m_degree = degree;
 		newNode->m_data = new Rational(rational);
 		newNode->m_next = current->m_next;
 		current->m_next = newNode;
-
+		
 		if (current->m_data->getNumerator() == 0)
 			deleteNode(current);
 	}
