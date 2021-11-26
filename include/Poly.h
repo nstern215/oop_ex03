@@ -35,8 +35,6 @@ public:
 	const PolyData& getData() const;
 	int getDeg() const;
 
-	//todo: add operators +-* << / %
-	//todo: gcd for polies
 private:
 	Rational valueInPoint(const PolyNode* node, const Rational& rational) const;
 	PolyData m_data;

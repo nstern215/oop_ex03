@@ -8,20 +8,20 @@ using std::nothrow;
 using std::cerr;
 using std::endl;
 
-PolyData::PolyData():
+PolyData::PolyData() :
 	m_head(nullptr)
 {}
 
-PolyData::PolyData(std::vector<Rational> poly):
+PolyData::PolyData(std::vector<Rational> poly) :
 	m_head(nullptr)
 {
 	unsigned int deg = poly.size();
-	
+
 	PolyNode* current = m_head;
 	for (const auto& rational : poly)
 	{
 		deg--;
-		
+
 		if (rational.getNumerator() == 0)
 			continue;
 
@@ -43,7 +43,7 @@ PolyData::PolyData(std::vector<Rational> poly):
 	}
 }
 
-PolyData::PolyData(const PolyData& other):
+PolyData::PolyData(const PolyData& other) :
 	m_head(nullptr)
 {
 	if (other.getHead() == nullptr)
@@ -69,7 +69,7 @@ PolyData& PolyData::operator=(const PolyData& other)
 		return *this;
 
 	releaseMemory();
-	
+
 	auto* tempHead = other.getHead();
 	while (tempHead != nullptr)
 	{
@@ -85,7 +85,7 @@ PolyData& PolyData::operator=(const PolyData& other)
 PolyNode* PolyData::operator[](const int degree) const
 {
 	auto* current = m_head;
-	while(current != nullptr)
+	while (current != nullptr)
 	{
 		if (current->m_degree == degree)
 			return current;
@@ -127,10 +127,10 @@ void PolyData::deleteNode(PolyNode* node)
 		m_head = m_head->m_next;
 		delete m_head;
 	}
-	
+
 	auto* current = m_head;
 
-	while(current != nullptr)
+	while (current != nullptr)
 	{
 		if (current->m_next == node)
 		{
@@ -142,6 +142,8 @@ void PolyData::deleteNode(PolyNode* node)
 
 			return;
 		}
+
+		current = current->m_next;
 	}
 }
 
@@ -167,35 +169,32 @@ void PolyData::add(const Rational& rational, const int degree)
 		node->m_next = m_head == nullptr ? nullptr : m_head;
 
 		m_head = node;
-
-		return;
 	}
-
-	if (degree == m_head->m_degree)
+	else if (degree == m_head->m_degree)
 	{
 		*(m_head->m_data) += rational;
-		return;
+
+		if (m_head->m_data->getNumerator() == 0)
+			deleteNode(m_head);
 	}
-	
-	PolyNode* current = m_head;
-	if (current == nullptr)
+	else
 	{
-		std::cerr << "faild to allocate memory";
-		exit(EXIT_FAILURE);
-	}
-	while (current->m_next != nullptr)
-	{
-		if (current->m_degree == degree)
+		PolyNode* current = m_head;
+		while (current->m_next != nullptr)
 		{
-			*(current->m_data) += rational;
-			return;
+			if (current->m_degree == degree)
+			{
+				*(current->m_data) += rational;
+				if (current->m_data->getNumerator() == 0)
+					deleteNode(current);
+				return;
+			}
+
+			if (current->m_next->m_degree < degree)
+				break;
+
+			current = current->m_next;
 		}
-
-		if (current->m_next->m_degree < degree)
-			break;
-
-		current = current->m_next;
-	}
 
 	auto* newNode = new (nothrow) PolyNode();
 	if (newNode == nullptr)
@@ -204,15 +203,21 @@ void PolyData::add(const Rational& rational, const int degree)
 		exit(EXIT_FAILURE);
 	}
 
-	if (newNode == nullptr)
-	{
-		//todo print error
+		if (newNode == nullptr)
+		{
+			//todo print error
+		}
+
+		newNode->m_degree = degree;
+		newNode->m_data = new Rational(rational);
+		newNode->m_next = current->m_next;
+		current->m_next = newNode;
+
+		if (current->m_data->getNumerator() == 0)
+			deleteNode(current);
 	}
 
-	newNode->m_degree = degree;
-	newNode->m_data = new Rational(rational);
-	newNode->m_next = current->m_next;
-	current->m_next = newNode;
+
 }
 
 PolyNode* PolyData::getHead() const
