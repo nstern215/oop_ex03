@@ -23,9 +23,9 @@ Poly::Poly(const Poly& p)
 {
 	int deg = p.getDeg();
 
-	for (int i = 0; i < deg; i++)
+	for (int i = deg; i >= 0; i--)
 	{
-		m_data.add(p[deg], deg);
+		m_data.add(p[i], i);
 	}
 }
 
@@ -35,9 +35,14 @@ PolyData Poly::copyData(const Poly& poly) const
 
 	int deg = poly.getDeg();
 
-	for (int i = 0; i < deg; i++)
+	//if (deg == 0)
+	//{
+	//	tempHead.add(poly[deg], deg);
+	//}
+
+	for(int i = deg ; i >= 0 ; i--)
 	{
-		tempHead.add(poly[deg], deg);
+		tempHead.add(poly[i], i);
 	}
 
 	return tempHead;
@@ -112,6 +117,7 @@ Poly& Poly::operator-()
 Poly Poly::operator-() const
 {
 	Poly temp(*this);
+
 	return -temp;
 }
 

@@ -149,8 +149,7 @@ void PolyData::deleteNode(PolyNode* node)
 
 bool PolyData::isCompare(const PolyNode* a, const PolyNode* b) const
 {
-	return  a->m_degree == b->m_degree &&
-		*(a->m_data) == *(b->m_data);
+	return  a->m_degree == b->m_degree && *(a->m_data) == *(b->m_data);
 }
 
 void PolyData::add(const Rational& rational, const int degree)
@@ -205,8 +204,7 @@ void PolyData::add(const Rational& rational, const int degree)
 
 		if (newNode == nullptr)
 		{
-			std::cerr << "Failed to allocate memory" << std::endl;
-			exit(EXIT_FAILURE);
+			//todo print error
 		}
 
 		newNode->m_degree = degree;

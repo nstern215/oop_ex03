@@ -44,10 +44,10 @@ int main()
 	std::cout << "Comparing tests: " << std::endl;
 	
 	bool a = p1 == p3;
-	std::cout << (a ? "Test failed" : "Test pass") << std::endl;
+	std::cout << (a ? "Test1 failed" : "Test1 pass") << std::endl;
 
 	a = p2 != p4;
-	std::cout <<( a ? "Test pass" : "Test Failed") << std::endl;
+	std::cout <<( a ? "Test2 pass" : "Test2 Failed") << std::endl;
 
 	std::cout << "Poly 1 \n" << p1 << std::endl;
 	std::cout << "Poly 2 \n" << p2 << std::endl;
@@ -65,10 +65,10 @@ int main()
 	
 	Rational result1(95, 3);
 	Rational result2(263, 3);
-	Rational result3(85);
+	Rational result3(319,3);
 	
 	Rational result = p1(2);
-	std::cout << (result == result1 ? "Test Pass" : "Test Failed") << std::endl;
+	std::cout << (result == result1 ? "Test3 Pass" : "Test3 Failed") << std::endl;
 
 	std::cout << p1[2] << std::endl;
 	std::cout << p1[3] << std::endl;
@@ -78,20 +78,20 @@ int main()
 
 	std::cout << p1.getDeg() << std::endl;
 
-	std::cout << (result == result2 ? "Test Pass" : "Test Failed") << std::endl;
+	std::cout << (result == result2 ? "Test4 Pass" : "Test4 Failed") << std::endl;
 	
 	p1 -= p5;
 	result = p1(2);
 
 	std::cout << p1.getDeg() << std::endl;
 
-	std::cout << (result == Rational(85) ? "Test Pass" : "Test Failed") << std::endl;
+	std::cout << (result == Rational(85) ? "Test5 Pass" : "Test5 Failed") << std::endl;
 	
 	p1 *= p3;
 	result = p1(2);
 
 	std::cout << p1.getDeg() << std::endl;
-	std::cout << (result == result3 ? "Test Pass" : "Test Failed") << std::endl;
+	std::cout << (result == result3 ? "Test6 Pass" : "Test6 Failed") << std::endl;
 
 	std::cout << "\n\nPoly 1 \n" << p1 << std::endl;
 	
