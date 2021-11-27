@@ -247,7 +247,17 @@ std::ostream& operator<<(std::ostream& os, const Poly& other)
 		if (node->m_data->getNumerator() > 0 && !firstPrint)
 			os << "+";
 		
-		os << *(node->m_data) << "*X" << "^" << node->m_degree << " ";;
+		os << " ";
+
+		os << *(node->m_data);
+
+		if (node->m_degree != 0)
+		{
+			os<< "*X" << "^" << node->m_degree;
+		}
+
+		os << " ";
+
 		firstPrint = false;
 		node = node->m_next;
 	}
