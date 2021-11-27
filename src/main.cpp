@@ -65,7 +65,7 @@ int main()
 
 	Rational result1(95, 3);
 	Rational result2(263, 3);
-	Rational result3(319,3);
+	Rational result3(85);
 	
 	Rational result = p1(2);
 	std::cout << (result == result1 ? "Test3 Pass" : "Test3 Failed") << std::endl;

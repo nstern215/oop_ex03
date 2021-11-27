@@ -15,7 +15,14 @@ Poly::Poly(const Rational& rational):
 
 Poly::Poly(const int degree, const Rational& rational)
 {
-	m_data.add(rational, degree);
+	if ((degree == 0) && (rational == (0, 0)))
+	{
+		m_data.add(0,-1);
+	}
+	else
+	{
+		m_data.add(rational, degree);
+	}
 }
 
 Poly::Poly(const Poly& p)
@@ -35,13 +42,9 @@ PolyData Poly::copyData(const Poly& poly) const
 
 	int deg = poly.getDeg();
 
-	//if (deg == 0)
-	//{
-	//	tempHead.add(poly[deg], deg);
-	//}
-
 	for(int i = deg ; i >= 0 ; i--)
 	{
+		if( poly[i] != (0))
 		tempHead.add(poly[i], i);
 	}
 
@@ -149,6 +152,8 @@ Poly Poly::operator+(const PolyNode& other) const
 Poly Poly::operator*(const Poly& other) const
 {
 	Poly result;
+	int deg;
+	deg = other.getDeg();
 	auto* node = m_data.getHead();
 	if (node == nullptr)
 	{
@@ -156,7 +161,7 @@ Poly Poly::operator*(const Poly& other) const
 		exit(EXIT_FAILURE);
 	}
 
-	while(node != nullptr)
+	for(int i = 0 ; i <= (deg + 1); i++)
 	{
 		result += (other * (*node));
 		node = node->m_next;
@@ -244,6 +249,12 @@ std::ostream& operator<<(std::ostream& os, const Poly& other)
 
 	while(node != nullptr)
 	{
+		if (node->m_data->getNumerator() == 0 && firstPrint)
+		{
+			os << "0";
+			break;
+		}
+
 		if (node->m_data->getNumerator() > 0 && !firstPrint)
 			os << "+";
 		
@@ -251,7 +262,7 @@ std::ostream& operator<<(std::ostream& os, const Poly& other)
 
 		os << *(node->m_data);
 
-		if (node->m_degree != 0)
+		if ((node->m_degree != 0))
 		{
 			os<< "*X" << "^" << node->m_degree;
 		}
