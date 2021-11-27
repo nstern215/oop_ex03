@@ -5,11 +5,11 @@
 #include <ostream>
 #include <iostream>
 
-Poly::Poly(const std::vector<Rational>& poly):
+Poly::Poly(const std::vector<Rational>& poly) :
 	m_data(poly)
 {}
 
-Poly::Poly(const Rational& rational):
+Poly::Poly(const Rational& rational) :
 	Poly(1, rational)
 {}
 
@@ -17,7 +17,7 @@ Poly::Poly(const int degree, const Rational& rational)
 {
 	if ((degree == 0) && (rational == (0, 0)))
 	{
-		m_data.add(0,-1);
+		m_data.add(0, -1);
 	}
 	else
 	{
@@ -26,7 +26,6 @@ Poly::Poly(const int degree, const Rational& rational)
 }
 
 Poly::Poly(const Poly& p)
-	:m_data()
 {
 	int deg = p.getDeg();
 
@@ -34,21 +33,6 @@ Poly::Poly(const Poly& p)
 	{
 		m_data.add(p[i], i);
 	}
-}
-
-PolyData Poly::copyData(const Poly& poly) const
-{
-	PolyData tempHead;
-
-	int deg = poly.getDeg();
-
-	for(int i = deg ; i >= 0 ; i--)
-	{
-		if( poly[i] != (0))
-		tempHead.add(poly[i], i);
-	}
-
-	return tempHead;
 }
 
 int Poly::getDeg() const
@@ -68,9 +52,14 @@ Rational Poly::valueInPoint(const PolyNode* node, const Rational& rational) cons
 
 bool Poly::operator==(const Poly& other) const
 {
-	auto tempHead = copyData(other);
+	if (getDeg() != other.getDeg())
+		return false;
 
-	return m_data == tempHead;
+	for (int i = getDeg(); i >= 0; i--)
+		if ((*this)[i] != other[i])
+			return false;
+
+	return true;
 }
 
 Rational Poly::operator()(const Rational& rational) const
@@ -84,7 +73,7 @@ Rational Poly::operator()(const Rational& rational) const
 		result += valueInPoint(current, rational);
 		current = current->m_next;
 	}
-	
+
 	return result;
 }
 
@@ -144,7 +133,7 @@ Poly Poly::operator+() const
 Poly Poly::operator+(const PolyNode& other) const
 {
 	Poly temp(*this);
-	temp += Poly(other.m_degree , *(other.m_data));
+	temp += Poly(other.m_degree, *(other.m_data));
 	return temp;
 }
 
@@ -161,7 +150,7 @@ Poly Poly::operator*(const Poly& other) const
 		exit(EXIT_FAILURE);
 	}
 
-	for(int i = 0 ; i <= (deg + 1); i++)
+	for (int i = 0; i <= (deg + 1); i++)
 	{
 		result += (other * (*node));
 		node = node->m_next;
@@ -192,20 +181,8 @@ Poly Poly::operator*(const PolyNode& other) const
 
 Poly& Poly::operator+=(const Poly& other)
 {
-	auto tempHead = other.copyData(other);
-
-	auto* node = tempHead.getHead();
-	if (node == nullptr)
-	{
-		std::cerr << "faild to allocate memory";
-		exit(EXIT_FAILURE);
-	}
-
-	while(node != nullptr)
-	{
-		m_data.add(*(node->m_data), node->m_degree);
-		node = node->m_next;
-	}
+	for (int i = other.getDeg(); i >= 0; i--)
+		m_data.add(other[i], i);
 
 	return *this;
 }
@@ -226,7 +203,12 @@ Poly& Poly::operator-=(const Poly& other)
 Poly& Poly::operator*=(const Poly& other)
 {
 	Poly result = *this * other;
-	m_data = copyData(result);
+
+	m_data = PolyData();
+
+	for (int i = result.getDeg(); i >= 0; i--)
+		m_data.add(result[i], i);
+
 	return *this;
 }
 
@@ -237,40 +219,23 @@ bool operator!=(const Poly& a, const Poly& b)
 
 std::ostream& operator<<(std::ostream& os, const Poly& other)
 {
-	auto tempHead = other.copyData(other);
-
-	auto* node = tempHead.getHead();
-	if (node == nullptr)
-	{
-		std::cerr << "faild to allocate memory";
-		exit(EXIT_FAILURE);
-	}
+	const auto deg = other.getDeg();
 	bool firstPrint = true;
 
-	while(node != nullptr)
+	for (int i = deg; i >= 0; i--)
 	{
-		if (node->m_data->getNumerator() == 0 && firstPrint)
+		auto elem = other[i];
+		if (elem.getNumerator() != 0)
 		{
-			os << "0";
-			break;
+			if (elem.getNumerator() > 0 && !firstPrint)
+				os << "+";
+
+			if (i == 0)
+				break;
+			os << elem << "*x^" << i;
+
+			firstPrint = false;
 		}
-
-		if (node->m_data->getNumerator() > 0 && !firstPrint)
-			os << "+";
-		
-		os << " ";
-
-		os << *(node->m_data);
-
-		if ((node->m_degree != 0))
-		{
-			os<< "*X" << "^" << node->m_degree;
-		}
-
-		os << " ";
-
-		firstPrint = false;
-		node = node->m_next;
 	}
 	return os;
 }

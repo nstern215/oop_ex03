@@ -32,7 +32,6 @@ public:
 	Poly& operator-=(const Poly& other);
 	Poly& operator*=(const Poly& other);
 
-	PolyData copyData(const Poly& poly) const;
 	int getDeg() const;
 
 private:

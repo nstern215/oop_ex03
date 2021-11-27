@@ -65,7 +65,7 @@ PolyData::~PolyData()
 
 PolyData& PolyData::operator=(const PolyData& other)
 {
-	if (&other == this || other.getHead() == nullptr)
+	if (&other == this)
 		return *this;
 
 	releaseMemory();
